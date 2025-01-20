@@ -27,6 +27,7 @@ void atBeginning();
 
 
 void printL();
+void tryAgain(int );
 
 // Driver code.
 void main () {
@@ -61,6 +62,9 @@ label1:
     switch(choice) {
         case 1:
             insertion();
+            break;
+        case 7:
+            exit(1);
             break;
         default:
             printf("Error! choose from the given options.\n");
@@ -125,6 +129,7 @@ label2:
         case 1:
             atBeginning();
             printL();
+            tryAgain(1);
             break;
         default:
             printf("\nError! choose from the given options.");
@@ -150,6 +155,33 @@ void atBeginning() {
     nodeCounter++;
 }
 
+// Try again program.
+void tryAgain(int choice) {
+    char ch;
+
+    printf("\nDo you want to try again[y/N]: ");
+    scanf(" %c", &ch);
+
+    switch(ch) {
+        case 'y':
+        case 'Y':
+            if(choice == 1) {
+                insertion();
+            } /* else {
+                deletion();
+            } */
+            break;
+        case 'n':
+        case 'N':
+            welcomeScreen();
+            break;
+        default:
+            printf("\nError: invalid input. \n");
+            printf("Press any key to continue... \n");
+            getch();
+            welcomeScreen();
+    }
+}
 // Screen cleaner function.
 void screenCleaner() {
     system("cls");
