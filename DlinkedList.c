@@ -21,6 +21,12 @@ void screenCleaner();       // Clear the console & input buffer.
 
 // Insertion choice screen & function.
 void insertion();
+void atBeginning();
+
+
+
+
+void printL();
 
 // Driver code.
 void main () {
@@ -64,6 +70,24 @@ label1:
     }
 }
 
+// Traverse through the list and print the elements.
+void printL() {
+    struct node *p = NULL;
+    p = headN;
+    
+    if(headN == NULL) {
+        printf("Alert: the list is empty!\n");
+        return;
+    }
+
+    printf("\nThe List: ");
+    while(p != NULL) {
+        printf("| %d |", p->data);
+        p = p->linkN;
+    }
+    printf("\n");
+}
+
 void insertion() {
     screenCleaner();
     if(headN == NULL) {
@@ -97,7 +121,33 @@ label2:
     printf("Enter your choice: ");
     scanf("%d", &choice1);
 
+    switch(choice1) {
+        case 1:
+            atBeginning();
+            printL();
+            break;
+        default:
+            printf("\nError! choose from the given options.");
+            printf("\nPress any key to continue...");
+            getch();
+            goto label2;
+    }
+}
 
+void atBeginning() {
+    struct node *newNode = malloc(sizeof(struct node));
+    if (!newNode) {
+        printf("\nError: Memory allocation failed!.\n");
+        exit(1);
+    }
+
+    printf("\nnewNode->data: ");
+    scanf("%d", &(newNode->data));
+
+    newNode->linkN = headN;
+    headN = newNode;
+
+    nodeCounter++;
 }
 
 // Screen cleaner function.
