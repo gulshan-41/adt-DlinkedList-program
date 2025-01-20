@@ -19,6 +19,9 @@ int nodeCounter = 1;
 void welcomeScreen();       // Introduction to main page & choice screen.
 void screenCleaner();       // Clear the console & input buffer.
 
+// Insertion choice screen & function.
+void insertion();
+
 // Driver code.
 void main () {
     welcomeScreen();
@@ -26,9 +29,12 @@ void main () {
 
 // Welcomescreen.
 void welcomeScreen() {
+    screenCleaner();
+
     int choice;
 
 label1:
+    screenCleaner();
     printf("-- Impelementing & demonstrating operations on Doubly Linked List.\n\n");
 
     printf("*Read the options carefully and choose.\n");
@@ -56,6 +62,42 @@ label1:
             getch();
             goto label1;
     }
+}
+
+void insertion() {
+    screenCleaner();
+    if(headN == NULL) {
+        headN = malloc(sizeof(struct node));
+        if(!(headN)) {
+            printf("\nError: Memory allocation failed!\n");
+            exit(1);
+        } else {
+            printf("Important: Before inserting further nodes,\n"
+                   "in the list must create the head NODE!\n");
+            printf("\nheadN->data: ");
+            scanf("%d", &(headN->data));
+
+            headN->linkN = NULL;
+        }
+    }
+    
+    int choice1;
+
+label2:
+    screenCleaner();
+    printf("-- Insertion.\n\n");
+    printf("Options: \n");
+    printf("> 1. At the beginning.\n");
+    printf("> 2. At the end.\n");
+    printf("> 3. At a specific position.\n");
+    printf("> 4. Before a specific node.\n");
+    printf("> 5. After a specific node.\n");
+    printf("> 6. Exit from this section.\n\n");
+
+    printf("Enter your choice: ");
+    scanf("%d", &choice1);
+
+
 }
 
 // Screen cleaner function.
