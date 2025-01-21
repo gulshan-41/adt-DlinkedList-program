@@ -23,6 +23,7 @@ void screenCleaner();       // Clear the console & input buffer.
 void insertion();
 void atBeginning();
 void atEnd();
+void atSpecificPosition();
 
 
 
@@ -138,6 +139,11 @@ label2:
             printL();
             tryAgain(1);
             break;
+        case 3:
+            atSpecificPosition();
+            printL();
+            tryAgain(1);
+            break;
         case 6:
             welcomeScreen();
             break;
@@ -149,6 +155,7 @@ label2:
     }
 }
 
+// Insert a node at the beginning of the list.
 void atBeginning() {
     struct node *newNode = malloc(sizeof(struct node));
     if (!newNode) {
@@ -166,6 +173,7 @@ void atBeginning() {
     nodeCounter++;
 }
 
+// Insert a node at the end to the list.
 void atEnd() {
     struct node *newNode = malloc(sizeof(struct node));
     if (!newNode) {
@@ -184,6 +192,49 @@ void atEnd() {
     }
     end->linkN = newNode;
     newNode->linkP = end;
+
+    nodeCounter++;
+}
+
+// Insert a node at a specified serial number.
+void atSpecificPosition() {
+    int index;
+
+    struct node *newNode = malloc(sizeof(struct node));
+    if (!newNode) {
+        printf("\nError: Memory allocation failed!.\n");
+        exit(1);
+    } else {
+        printf("\nnewNode->data: ");
+        scanf("%d", &(newNode->data));
+        newNode->linkN = NULL;
+        newNode->linkP = NULL;
+        printf("serial: ");
+        scanf("%d", &index);
+
+        struct node *p = headN;
+
+        // The serial number should be between the list, or at the end.
+        if(index > nodeCounter + 1 || index < 1) {
+            printf("\nError: Enter a valid serial number.");
+            printf("\nPress any key to continue...");
+            getch();
+            insertion();
+        } else if(index == 1) {
+            newNode->linkN = headN;
+            newNode->linkP = newNode;
+            headN = newNode;
+        } else {
+            index = index - 1;
+            while(index != 1) {
+                p = p->linkN;
+                index--;
+            }
+            newNode->linkN = p->linkN;
+            newNode->linkP = p;
+            p->linkN = newNode;
+        }
+    }
 
     nodeCounter++;
 }
