@@ -24,6 +24,7 @@ void insertion();
 void atBeginning();
 void atEnd();
 void atSpecificPosition();
+void afterASpecificNode();
 
 
 
@@ -121,8 +122,8 @@ label2:
     printf("> 1. At the beginning.\n");
     printf("> 2. At the end.\n");
     printf("> 3. At a specific position.\n");
-    printf("> 4. Before a specific node.\n");
-    printf("> 5. After a specific node.\n");
+    printf("> 4. After a specific node.\n");
+    printf("> 5. Before a specific node.\n");
     printf("> 6. Exit from this section.\n\n");
 
     printf("Enter your choice: ");
@@ -141,6 +142,11 @@ label2:
             break;
         case 3:
             atSpecificPosition();
+            printL();
+            tryAgain(1);
+            break;
+        case 4:
+            afterASpecificNode();
             printL();
             tryAgain(1);
             break;
@@ -186,6 +192,7 @@ void atEnd() {
 
     struct node *end = headN;
     newNode->linkN = NULL;
+    newNode->linkP = NULL;
             
     while(end->linkN != NULL) {
         end = end->linkN;
@@ -235,6 +242,46 @@ void atSpecificPosition() {
             p->linkN = newNode;
         }
     }
+
+    nodeCounter++;
+}
+
+// Insert a node "after" a specified node (by value), the occuring would be considered.
+void afterASpecificNode() {
+    int target, i , choice;
+
+    if(headN == NULL) {
+        printf("\nError: The list is empty.\n");
+        printf("Press any key to continue...");
+        getch();
+        welcomeScreen();
+    }
+
+    printL();
+    printf("*Searching it by value, the first occuring would be considered.\n\n");
+    printf("data: ");
+    scanf("%d", &target);
+
+    struct node *p = headN;
+
+    for(i = 1; i <= nodeCounter; i++) {
+        if(target == p->data) {
+            break;
+        }
+        p = p->linkN;
+    }
+
+    struct node *newNode = malloc(sizeof(struct node));
+    if (!newNode) {
+        printf("\nError: Memory allocation failed!.\n");
+        exit(1);
+    }
+    printf("newNode->data: ");
+    scanf("%d", &(newNode->data));
+
+    newNode->linkN = p->linkN;
+    p->linkN = newNode;
+    newNode->linkP = p;
 
     nodeCounter++;
 }
