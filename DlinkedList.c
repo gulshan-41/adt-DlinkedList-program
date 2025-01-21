@@ -22,6 +22,7 @@ void screenCleaner();       // Clear the console & input buffer.
 // Insertion choice screen & function.
 void insertion();
 void atBeginning();
+void atEnd();
 
 
 
@@ -106,6 +107,7 @@ void insertion() {
             scanf("%d", &(headN->data));
 
             headN->linkN = NULL;
+            headN->linkN = NULL;
         }
     }
     
@@ -131,6 +133,14 @@ label2:
             printL();
             tryAgain(1);
             break;
+        case 2:
+            atEnd();
+            printL();
+            tryAgain(1);
+            break;
+        case 6:
+            welcomeScreen();
+            break;
         default:
             printf("\nError! choose from the given options.");
             printf("\nPress any key to continue...");
@@ -150,7 +160,30 @@ void atBeginning() {
     scanf("%d", &(newNode->data));
 
     newNode->linkN = headN;
+    newNode->linkP = newNode;
     headN = newNode;
+
+    nodeCounter++;
+}
+
+void atEnd() {
+    struct node *newNode = malloc(sizeof(struct node));
+    if (!newNode) {
+        printf("\nError: Memory allocation failed!.\n");
+        exit(1);
+    }
+
+    printf("\nnewNode->data: ");
+    scanf("%d", &(newNode->data));
+
+    struct node *end = headN;
+    newNode->linkN = NULL;
+            
+    while(end->linkN != NULL) {
+        end = end->linkN;
+    }
+    end->linkN = newNode;
+    newNode->linkP = end;
 
     nodeCounter++;
 }
