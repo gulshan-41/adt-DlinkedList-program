@@ -29,6 +29,7 @@ void beforeASpecificNode();
 
 void deletion();
 void theFirstNode();
+void theLastNode();
 
 
 
@@ -184,7 +185,7 @@ void atBeginning() {
     scanf("%d", &(newNode->data));
 
     newNode->linkN = headN;
-    newNode->linkP = newNode;
+    newNode->linkP = NULL;
     headN = newNode;
 
     nodeCounter++;
@@ -240,7 +241,7 @@ void atSpecificPosition() {
             insertion();
         } else if(index == 1) {
             newNode->linkN = headN;
-            newNode->linkP = newNode;
+            newNode->linkP = NULL;
             headN = newNode;
         } else {
             index = index - 1;
@@ -347,9 +348,17 @@ void beforeASpecificNode() {
     printf("newNode->data: ");
     scanf("%d", &(newNode->data));
 
-    newNode->linkN = p1;
-    p2->linkN = newNode;
-    newNode->linkP = p2;
+    if (p2 == NULL) {
+        newNode->linkN = headN;
+        headN->linkP = newNode;
+        headN = newNode;
+    } else {
+        newNode->linkN = p1;
+        newNode->linkP = p2;
+        p2->linkN = newNode;
+        p1->linkP = newNode;
+}
+
 
     nodeCounter++;
 }
@@ -383,6 +392,11 @@ label3:
             printL();
             tryAgain(2);
             break;
+        case 2:
+            theLastNode();
+            printL();
+            tryAgain(2);
+            break;
         default:
             printf("\nError! choose from the given options.");
             printf("\nPress any key to continue...");
@@ -397,6 +411,26 @@ void theFirstNode() {
         
     free(p);
     p = NULL;
+
+    nodeCounter--;
+}
+
+void theLastNode() {
+    if((headN)->linkN == NULL) {
+        free(headN);
+        headN = NULL;
+    } else {
+        struct node *p1 = headN;
+        struct node *p2 = NULL;
+
+        while(p1->linkN != NULL) {
+            p2 = p1;
+            p1 = p1->linkN;
+        }
+        p2->linkN = NULL;
+        free(p1);
+        p1 = NULL;
+    }
 
     nodeCounter--;
 }
