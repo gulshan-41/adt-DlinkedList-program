@@ -254,7 +254,7 @@ void atSpecificPosition() {
 
 // Insert a node "after" a specified node (by value), the occuring would be considered.
 void afterASpecificNode() {
-    int target, i , choice;
+    int target, i , choice, flag = 0;
 
     if(headN == NULL) {
         printf("\nError: The list is empty.\n");
@@ -272,9 +272,17 @@ void afterASpecificNode() {
 
     for(i = 1; i <= nodeCounter; i++) {
         if(target == p->data) {
+            flag++;
             break;
         }
         p = p->linkN;
+    }
+
+    if(flag == 0) {
+        printf("\nError: Element not found! Check the list & enter a valid element.");
+        printf("\nPress any key to continue...");
+        getch();
+        insertion();
     }
 
     struct node *newNode = malloc(sizeof(struct node));
@@ -320,7 +328,7 @@ void beforeASpecificNode() {
     }
 
     if(flag == 0) {
-        printf("\nError: Check the list & enter a valid element! Element not found.");
+        printf("\nError: Element not found! Check the list & enter a valid element.");
         printf("\nPress any key to continue...");
         getch();
         insertion();
