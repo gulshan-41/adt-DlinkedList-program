@@ -25,6 +25,7 @@ void atBeginning();
 void atEnd();
 void atSpecificPosition();
 void afterASpecificNode();
+void beforeASpecificNode();
 
 
 
@@ -150,6 +151,11 @@ label2:
             printL();
             tryAgain(1);
             break;
+        case 5:
+            beforeASpecificNode();
+            printL();
+            tryAgain(1);
+            break;
         case 6:
             welcomeScreen();
             break;
@@ -259,7 +265,7 @@ void afterASpecificNode() {
 
     printL();
     printf("*Searching it by value, the first occuring would be considered.\n\n");
-    printf("data: ");
+    printf("element: ");
     scanf("%d", &target);
 
     struct node *p = headN;
@@ -282,6 +288,55 @@ void afterASpecificNode() {
     newNode->linkN = p->linkN;
     p->linkN = newNode;
     newNode->linkP = p;
+
+    nodeCounter++;
+}
+
+void beforeASpecificNode() {
+    int target, i , choice, flag = 0;
+
+    if(headN == NULL) {
+        printf("\nError: The list is empty.\n");
+        printf("Press any key to continue...");
+        getch();
+        welcomeScreen();
+    }
+
+    printL();
+    printf("*Searching it by value, the first occuring would be considered.\n\n");
+    printf("element: ");
+    scanf("%d", &target);
+
+    struct node *p1 = headN;
+    struct node *p2 = NULL;
+
+    for(i = 1; i <= nodeCounter; i++) {
+        if(target == p1->data) {
+            flag++;
+            break;
+        }
+        p2 = p1;
+        p1 = p1->linkN;
+    }
+
+    if(flag == 0) {
+        printf("\nError: Check the list & enter a valid element! Element not found.");
+        printf("\nPress any key to continue...");
+        getch();
+        insertion();
+    }
+
+    struct node *newNode = malloc(sizeof(struct node));
+    if (!newNode) {
+        printf("\nError: Memory allocation failed!.\n");
+        exit(1);
+    }
+    printf("newNode->data: ");
+    scanf("%d", &(newNode->data));
+
+    newNode->linkN = p1;
+    p2->linkN = newNode;
+    newNode->linkP = p2;
 
     nodeCounter++;
 }
