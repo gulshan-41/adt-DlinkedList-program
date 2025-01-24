@@ -33,7 +33,7 @@ void theLastNode();
 void aSpecificNode();
 
 
-
+int verification(int , int );
 void printL();
 void tryAgain(int );
 
@@ -445,6 +445,7 @@ void theLastNode() {
 
 void aSpecificNode() {
     int index, data, verify = 0;
+    int errorCode;
     struct node *p = headN;
 
     printf("\n*NOTE: Enter the serial no. & data inside\n"
@@ -458,22 +459,13 @@ void aSpecificNode() {
     printf("data: ");       
     scanf("%d", &data);
 
-    if(index >= nodeCounter + 1 || index < 1) {
+    errorCode = verification(index, data);
+    if(errorCode == 4) {
         printf("\nError: Enter a valid serial number.");
         printf("\nPress any key to continue...");
         getch();
         deletion();
-    } else {
-        for(int i = 1; i <= index; i++) {
-            if(p->data == data) {
-                verify++;
-                break;
-            }
-            p = p->linkN;
-        }
-    }
-
-    if(verify == 0) {
+    } else if(errorCode == 5) {
         printf("\nError: The element is not present at the\n"
                "specified serial number. ");
         printf("\nPress any key to continue...");
@@ -510,6 +502,29 @@ void aSpecificNode() {
     }
 
     nodeCounter--;
+}
+
+int verification(int index, int data) {
+    int verify = 0;
+    struct node *p = headN;
+
+    if(index >= nodeCounter + 1 || index < 1) {
+        return 4;       // error code: 4
+    } else {
+        for(int i = 1; i <= index; i++) {
+            if(p->data == data) {
+                verify++;
+                break;
+            }
+            p = p->linkN;
+        }
+    }
+
+    if(verify == 0) {
+        return 5;       // error code: 5
+    } else {
+        return 1;
+    }
 }
 
 // Try again program.
