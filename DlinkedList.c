@@ -34,6 +34,8 @@ void aSpecificNode();
 
 void update();
 
+void search();
+
 int verification(int , int );
 void printL();
 void tryAgain(int );
@@ -77,6 +79,9 @@ label1:
             break;
         case 3:
             update();
+            break;
+        case 4:
+            search();
             break;
         case 7:
             exit(1);
@@ -417,6 +422,7 @@ label3:
     }
 }
 
+// Deleting the first node of the list.
 void theFirstNode() {
     struct node *p = headN;
     headN = (headN)->linkN;
@@ -427,6 +433,7 @@ void theFirstNode() {
     nodeCounter--;
 }
 
+// Deleting the last node of the list.
 void theLastNode() {
     if((headN)->linkN == NULL) {
         free(headN);
@@ -447,6 +454,7 @@ void theLastNode() {
     nodeCounter--;
 }
 
+// Deletes a specific node, specified with it's serial number, & data.
 void aSpecificNode() {
     int index, data, verify = 0;
     int errorCode;
@@ -579,6 +587,59 @@ void update() {
     switch(choice) {
         case 1:
             update();
+            break;
+        case 2:
+            welcomeScreen();
+            break;
+        default:
+            printf("\nError: Choose from the given options.");
+            printf("\nPress any key to continue...");
+            getch();
+            welcomeScreen();
+    }
+}
+
+void search() {
+    screenCleaner();
+
+    int target, i, flag = 0, choice;
+
+    if(headN == NULL) {
+        printf("\nError: The list is empty.\n");
+        printf("Press any key to continue...");
+        getch();
+        welcomeScreen();
+    }
+
+    printL();
+
+    printf("\nelement: ");
+    scanf("%d", &target);
+
+    struct node *p = headN;
+
+    for(i = 1; i <= nodeCounter; i++) {
+        if(target == p->data) {
+            flag++;
+            break;
+        }
+        p = p->linkN;
+    }
+
+    if(flag == 1) {
+        printf("\nserial no.: %d\n", i);
+    } else {
+        printf("\nelement not found!\n");
+    }
+
+    printf("\n> 1. Continue to search elements.\n");
+    printf("> 2. Exit from this section.\n");
+    printf("\nyour choice: ");
+    scanf("%d", &choice);
+
+    switch(choice) {
+        case 1:
+            search();
             break;
         case 2:
             welcomeScreen();
