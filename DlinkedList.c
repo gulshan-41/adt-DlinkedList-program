@@ -32,6 +32,7 @@ void theFirstNode();
 void theLastNode();
 void aSpecificNode();
 
+void update();
 
 int verification(int , int );
 void printL();
@@ -73,6 +74,9 @@ label1:
             break;
         case 2:
             deletion();
+            break;
+        case 3:
+            update();
             break;
         case 7:
             exit(1);
@@ -524,6 +528,56 @@ int verification(int index, int data) {
         return 5;       // error code: 5
     } else {
         return 1;
+    }
+}
+
+void update() {
+    screenCleaner();
+
+    int serial, uData, choice;
+
+    printf("Which node do you want to update?");
+    printL();
+
+    printf("\nserial no.: ");
+    scanf("%d", &serial);
+    printf("data: ");
+    scanf("%d", &uData);
+
+    if(serial > nodeCounter || serial < 1) {
+        printf("\nError: Enter a valid serial number.");
+        printf("\nPress any key to continue...");
+        getch();
+        welcomeScreen();
+    } else {
+        struct node *p = headN;
+
+        for(int i = 1; i < serial; i++) {
+            p = p->linkN;
+        }
+
+        p->data = uData;
+    }
+
+    printL();
+
+    printf("\n> 1. Continue to update more elements.\n");
+    printf("> 2. Exit from this section.\n");
+    printf("\nyour choice: ");
+    scanf("%d", &choice);
+
+    switch(choice) {
+        case 1:
+            update();
+            break;
+        case 2:
+            welcomeScreen();
+            break;
+        default:
+            printf("\nError: Choose from the given options.");
+            printf("\nPress any key to continue...");
+            getch();
+            welcomeScreen();
     }
 }
 
