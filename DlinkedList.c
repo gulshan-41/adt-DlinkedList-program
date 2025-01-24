@@ -534,30 +534,40 @@ int verification(int index, int data) {
 void update() {
     screenCleaner();
 
-    int serial, uData, choice;
+    int serial, data, uData, choice, errorCode;
 
     printf("Which node do you want to update?");
     printL();
 
     printf("\nserial no.: ");
     scanf("%d", &serial);
-    printf("data: ");
-    scanf("%d", &uData);
+    printf("node's data: ");
+    scanf("%d", &data);
 
-    if(serial > nodeCounter || serial < 1) {
+    errorCode = verification(serial, data);
+    if(errorCode == 4) {
         printf("\nError: Enter a valid serial number.");
         printf("\nPress any key to continue...");
         getch();
-        welcomeScreen();
-    } else {
-        struct node *p = headN;
-
-        for(int i = 1; i < serial; i++) {
-            p = p->linkN;
-        }
-
-        p->data = uData;
+        update();
+    } else if(errorCode == 5) {
+        printf("\nError: The element is not present at the\n"
+               "specified serial number. ");
+        printf("\nPress any key to continue...");
+        getch();
+        update();
     }
+
+    printf("\nnew->data: ");
+    scanf("%d", &uData);
+
+    struct node *p = headN;
+
+    for(int i = 1; i < serial; i++) {
+        p = p->linkN;
+    }
+
+    p->data = uData;
 
     printL();
 
