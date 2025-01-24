@@ -30,6 +30,7 @@ void beforeASpecificNode();
 void deletion();
 void theFirstNode();
 void theLastNode();
+void aSpecificNode();
 
 
 
@@ -357,8 +358,7 @@ void beforeASpecificNode() {
         newNode->linkP = p2;
         p2->linkN = newNode;
         p1->linkP = newNode;
-}
-
+    }
 
     nodeCounter++;
 }
@@ -397,6 +397,14 @@ label3:
             printL();
             tryAgain(2);
             break;
+        case 3:
+            aSpecificNode();
+            printL();
+            tryAgain(2);
+            break;
+        case 4:
+            welcomeScreen();
+            break;
         default:
             printf("\nError! choose from the given options.");
             printf("\nPress any key to continue...");
@@ -428,6 +436,75 @@ void theLastNode() {
             p1 = p1->linkN;
         }
         p2->linkN = NULL;
+        free(p1);
+        p1 = NULL;
+    }
+
+    nodeCounter--;
+}
+
+void aSpecificNode() {
+    int index, data, verify = 0;
+    struct node *p = headN;
+
+    printf("\n*NOTE: Enter the serial no. & data inside\n"
+           "the node to verify it's presence.\n");
+
+    printL();
+
+    printf("\nserial no.: ");     
+    scanf("%d", &index);
+
+    printf("data: ");       
+    scanf("%d", &data);
+
+    if(index >= nodeCounter + 1 || index < 1) {
+        printf("\nError: Enter a valid serial number.");
+        printf("\nPress any key to continue...");
+        getch();
+        deletion();
+    } else {
+        for(int i = 1; i <= index; i++) {
+            if(p->data == data) {
+                verify++;
+                break;
+            }
+            p = p->linkN;
+        }
+    }
+
+    if(verify == 0) {
+        printf("\nError: The element is not present at the\n"
+               "specified serial number. ");
+        printf("\nPress any key to continue...");
+        getch();
+        deletion();
+    }
+
+    if(index == 1) {
+        p = headN;
+        headN = (headN)->linkN;
+        
+        free(p);
+        p = NULL;
+    } else {
+        struct node *p1 = headN;
+        struct node *p2 = NULL;
+        struct node *temp = NULL;
+
+        for(int i = 1; i < index; i++) {
+            p2 = p1;
+            p1 = p1->linkN;
+        }
+
+        if(p1->linkN == NULL) {
+            p2->linkN = p1->linkN;
+        } else {
+            temp = p1->linkN;
+            p2->linkN = p1->linkN;
+            temp->linkP = p2;
+        }
+        
         free(p1);
         p1 = NULL;
     }
