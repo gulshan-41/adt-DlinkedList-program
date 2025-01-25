@@ -36,6 +36,11 @@ void update();
 
 void search();
 
+void sort();
+struct node * mergeSort(struct node * );
+struct node * split(struct node * ); 
+struct node * merge(struct node * , struct node * );
+
 int verification(int , int );
 void printL();
 void tryAgain(int );
@@ -82,6 +87,9 @@ label1:
             break;
         case 4:
             search();
+            break;
+        case 5:
+            sort();
             break;
         case 7:
             exit(1);
@@ -649,6 +657,73 @@ void search() {
             printf("\nPress any key to continue...");
             getch();
             welcomeScreen();
+    }
+}
+
+// Sort the list using merge sort algorithm. (Backtracking!)
+void sort() {
+    screenCleaner();
+
+    printL();
+
+    if(headN == NULL || headN->linkN == NULL) {
+        printf("\nError: The list is empty or it has only one node!\n");
+        printf("Press any key to continue...");
+        getch();
+        welcomeScreen();
+    }
+
+    headN = mergeSort(headN);
+
+    printL();
+
+    printf("\nPress any key to continue...");
+    getch();
+    welcomeScreen();
+}
+
+struct node * mergeSort(struct node *headN) {
+
+    if (headN == NULL || headN->linkN == NULL) {
+        return headN;
+    }
+
+    struct node *second = split(headN);
+
+    headN = mergeSort(headN);
+    second = mergeSort(second);
+
+    return merge(headN, second);
+}
+
+struct node * split(struct node *headN) {
+
+    struct node *fast = headN->linkN;
+    struct node *slow = headN;
+
+    while (fast != NULL && fast->linkN != NULL) {
+        fast = fast->linkN->linkN;
+        slow = slow->linkN;
+    }
+
+    struct node *temp = slow->linkN;
+    slow->linkN = NULL;
+    return temp;
+}
+
+struct node * merge(struct node * first, struct node * second) {
+
+    if(first == NULL) return second;
+    if(second == NULL) return first;
+
+    if(first->data < second->data) {
+        first->linkN = merge(first->linkN, second);
+        second->linkP = first;
+        return first;
+    } else {
+        second->linkN = merge(first, second->linkN);
+        first->linkP = second;
+        return second;
     }
 }
 
