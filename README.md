@@ -4,7 +4,7 @@ C program implementing and demonstrating operations on Doubly Linked List. Desig
 <img src="images/welcomeScreen.png" alt="Program Screenshot">
 
 ## Features
-- Operation including: [Insertion](#insertion-operations), [Deletion](#deletion-operations), [Updation](#update-function), [Searching](#search-function), [Sorting](#sort-functions), [Reverse](#reverse-function), [Removing Duplicates](#removing-duplicates-function).
+- Operation including: [Insertion](#insertion-operations), [Deletion](#deletion-operations), [Updation](#update-function), [Searching](#search-function), [Sorting](#sort-functions), [Reverse](#reverse-function).
 - Menu driven program for easy interaction.
 - Simple and clean code structure.
 
