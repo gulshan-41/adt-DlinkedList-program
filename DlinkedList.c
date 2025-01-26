@@ -41,6 +41,8 @@ struct node * mergeSort(struct node * );
 struct node * split(struct node * ); 
 struct node * merge(struct node * , struct node * );
 
+void reverse();
+
 int verification(int , int );
 void printL();
 void tryAgain(int );
@@ -90,6 +92,9 @@ label1:
             break;
         case 5:
             sort();
+            break;
+        case 6:
+            reverse();
             break;
         case 7:
             exit(1);
@@ -660,7 +665,7 @@ void search() {
     }
 }
 
-// Sort the list using merge sort algorithm. (Backtracking!)
+// Sort the list (in ascending order) using merge sort algorithm. (Backtracking!)
 void sort() {
     screenCleaner();
 
@@ -724,6 +729,56 @@ struct node * merge(struct node * first, struct node * second) {
         second->linkN = merge(first, second->linkN);
         first->linkP = second;
         return second;
+    }
+}
+
+void reverse() {
+    screenCleaner();
+
+    int choice;
+
+    printL();
+
+    if(headN == NULL || headN->linkN == NULL) {
+        printf("\nError: The list is empty or it has only one node!\n");
+        printf("Press any key to continue...");
+        getch();
+        welcomeScreen();
+    }
+
+    struct node *prev = NULL;
+    struct node *current = headN;
+    struct node *next = NULL;
+
+    while (current != NULL) {
+        next = current->linkN;
+        current->linkN = prev;
+        current->linkP = next;
+        prev = current;
+        current = next;
+    }
+
+    headN = prev;
+
+    printL();
+
+    printf("\n> 1. Reverse one more time OR.\n");
+    printf("> 2. Exit from this section.\n");
+    printf("\nyour choice: ");
+    scanf("%d", &choice);
+
+    switch(choice) {
+        case 1:
+            reverse();
+            break;
+        case 2:
+            welcomeScreen();
+            break;
+        default:
+            printf("\nError: Choose from the given options.");
+            printf("\nPress any key to continue...");
+            getch();
+            welcomeScreen();
     }
 }
 
