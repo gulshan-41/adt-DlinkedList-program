@@ -329,6 +329,7 @@ void afterASpecificNode() {
     nodeCounter++;
 }
 
+// Insert a node "before" a specified node (by value), the first occuring would be considered.
 void beforeASpecificNode() {
     int target, i , choice, flag = 0;
 
@@ -552,6 +553,7 @@ int verification(int index, int data) {
     }
 }
 
+// Update nodes with new data.
 void update() {
     screenCleaner();
 
@@ -612,6 +614,7 @@ void update() {
     }
 }
 
+// Search a specific node via it's data.
 void search() {
     screenCleaner();
 
@@ -732,6 +735,7 @@ struct node * merge(struct node * first, struct node * second) {
     }
 }
 
+// Reverse the list.
 void reverse() {
     screenCleaner();
 
