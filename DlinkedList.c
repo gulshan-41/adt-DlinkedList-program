@@ -281,7 +281,7 @@ void atSpecificPosition() {
     nodeCounter++;
 }
 
-// Insert a node "after" a specified node (by value), the occuring would be considered.
+// Insert a node "after" a specified node (by value), the first occuring would be considered.
 void afterASpecificNode() {
     int target, i , choice, flag = 0;
 
