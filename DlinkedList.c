@@ -139,7 +139,7 @@ void insertion() {
             scanf("%d", &(headN->data));
 
             headN->linkN = NULL;
-            headN->linkN = NULL;
+            headN->linkP = NULL;
         }
     }
     
@@ -813,6 +813,7 @@ void tryAgain(int choice) {
             welcomeScreen();
     }
 }
+
 // Screen cleaner function.
 void screenCleaner() {
     system("cls");
